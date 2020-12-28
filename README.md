@@ -11,3 +11,6 @@ If you have a question, please email me at *sarah.verbelen@student.ehb.be*.
 This project is currently **in development**.
 ## Authors
 * Sarah Verbelen
+
+## Github Flow vs GIT Flow
+This project uses Github flow instead of GIT Flow. The reason for this is that I want to keep this project simple and sweet and the rigid branch structure of a traditional GIT Flow would needlessly complicate things. Additionally, as I am only a single developer working on this project, there is no need for the overview that the GIT Flow provides.
