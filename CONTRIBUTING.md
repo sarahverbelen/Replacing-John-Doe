@@ -22,7 +22,10 @@ Docker Version:
 Please open an issue with the tag **Enhancement** and describe your suggestion here.
 
 # Guidelines
-Coming Soon.
+## Running Locally
+You can run the api locally using Docker. If you do not have Docker installed, please refer to [the Docker documentation](https://docs.docker.com/). 
+1. Create a container using the docker-compose file; run `docker-compose up` in your terminal.
+2. Navigate to the api in your browser using the url: `localhost:3000`. 
 
 # Roadmap And Vision
 The goal of this project is to stay as simple and easy to use as possible. This needs to be something that can be easily implemented, without causing the developer extra trouble. It could generate lots of different kinds of data, from filling up databases with fake users to writing fake stories to go on webpages. 
