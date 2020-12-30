@@ -5,7 +5,7 @@ services:
     container_name: rjdapi
     build: ./api
     environment:
-      PG_CONNECTION_STRING: postgres://example:example@store:5433/test
+      PG_CONNECTION_STRING: postgres://example:example@rjdstore:5432/test
 
     ports:
       - 3000:3000
@@ -23,4 +23,4 @@ services:
       POSTGRES_DB: test
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
-      - 5433:5433
+      - 5432:5432

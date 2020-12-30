@@ -4,7 +4,7 @@
   "description": "Replacing John Doe (RJD) is an API that generates more believable placeholder data so that you do not have to go back to Lorem Ipsum's and John Doe's.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "test": "jest --detectOpenHandles"
   },
   "author": "Sarah Verbelen",
@@ -15,6 +15,7 @@
     "http": "0.0.1-security",
     "jest": "^26.6.3",
     "knex": "^0.21.15",
+    "nodemon": "^2.0.6",
     "pg": "^8.5.1",
     "uuid": "^8.3.2"
   }
