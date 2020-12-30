@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  api:
+    container_name: rjdapi
+    build: ./api
+    environment:
+      PG_CONNECTION_STRING: postgres://example:example@rjdstore:5432/test
+
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api/src:/usr/app/api/src
+
+
+  db:
+    container_name: rjdstore   
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+      POSTGRES_DB: test
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
