@@ -24,7 +24,7 @@ const pg = require('knex')({
     client: 'pg',
     version: '9.6',      
     searchPath: ['knex', 'public'],
-    connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://example:example@localhost:5433/test'
+    connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://example:example@localhost:5432/test'
   });
 
 
@@ -48,6 +48,7 @@ async function initialiseTables() {
       }
     });
 
+    let listOfTypes = ["title", "name", "text"];
     
     await pg.schema.hasTable('type').then(async (exists) => {
       if (!exists) {
@@ -57,7 +58,13 @@ async function initialiseTables() {
             table.uuid('uuid');
             table.string('type');
             table.integer('typeID');
-          })
+          }).then(async () => {
+            console.log('created types');
+            for (let i = 0; i < listOfTypes.length; i++) {
+              const uuid = Helpers.generateUUID();
+              await pg.table('type').insert({ uuid, type: listOfTypes[i], typeID: i })
+            }
+          });
           
           
       }
