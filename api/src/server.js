@@ -37,12 +37,30 @@ async function initialiseTables() {
             table.increments();
             table.uuid('uuid');
             table.string('data');
-            table.integer('type');
-            table.integer('order');
+            table.integer('typeID');
             table.timestamps(true, true);
           })
           .then(async () => {
             console.log('created table placeholderData');
+            // make a few titles, texts and names
+
+            let listOfNames = ["John Doe", "Jane Doe", "Mark Verstappen", "Lily Verhaegen"];
+            let listOfTitles = ["Lorem Ipsum Dolor Sit Amet", "In Het Hulst Van De Nacht", "Mijn Meest Dierbare Herinneringen"];
+            let listOfTexts = ["I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.", "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.", "Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind."];
+            for (let i = 0; i < listOfNames.length; i++) {
+                const uuid = Helpers.generateUUID();
+                await pg.table('placeholderData').insert({ uuid, data: listOfNames[i], typeID: 1 })
+              }
+
+              for (let i = 0; i < listOfTitles.length; i++) {
+                const uuid = Helpers.generateUUID();
+                await pg.table('placeholderData').insert({ uuid, data: listOfTitles[i], typeID: 0 })
+              }
+
+              for (let i = 0; i < listOfTexts.length; i++) {
+                const uuid = Helpers.generateUUID();
+                await pg.table('placeholderData').insert({ uuid, data: listOfTexts[i], typeID: 2 })
+              }
           });
   
       }
