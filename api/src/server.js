@@ -28,7 +28,7 @@ app.post('/create/:type/:data', (req, res) => {
       // save the new data to the database
       const uuid = Helpers.generateUUID(); // first we generate a uuid for this placeholder data
 
-      await pg.table('placeholderData').insert({
+      pg.table('placeholderData').insert({
         uuid,
         data: req.params.data,
         typeID: req.params.type
