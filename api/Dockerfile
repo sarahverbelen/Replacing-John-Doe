@@ -10,3 +10,4 @@ COPY . .
 
 CMD ["npm",  "start"]
 
+CMD ["npm", "test"]
