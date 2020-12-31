@@ -66,3 +66,29 @@ describe('create placeholder data', () => {
         } catch (e) {}
     });
 });
+
+describe('GET: /getData endpoint', () => {
+    test('/getData cannot be called without parameters', async (next) => {
+        try {
+            const response = await request.get('/getData');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/getData cannot be called with a type parameter that doesnt exist (=/= 0, 1 or 2)', async (next) => {
+        try {
+            const response = await request.get('/getData/5');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/getData called with a type parameter returns a random piece of data from that type', async (next) => {
+        try {
+            const response = await request.get('/getData/0');
+            expect(response.body).toBeDefined();
+            next();
+        } catch (e) {}
+    });
+});
