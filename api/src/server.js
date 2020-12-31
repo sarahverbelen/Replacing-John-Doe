@@ -34,12 +34,12 @@ app.post('/create/:type/:data', (req, res) => {
         typeID: req.params.type
       });
 
-    // send a statuscode when everything went right
-    res.status(200).send();
+      // send a statuscode when everything went right
+      res.status(200).send();
+    }
   }
-}
-// send an error in case the parameters are not correct / empty
-res.status(400).send();
+  // send an error in case the parameters are not correct / empty
+  res.status(400).send();
 });
 
 // overloading the create endpoint: in case there are not enough parameters given
@@ -51,6 +51,31 @@ app.post('/create', (req, res) => {
   res.status(400).send();
 });
 
+// READ ENDPOINT
+app.get('/getData/:type', (req, res) => {
+  if (req.params.type == 0 || req.params.type == 1 || req.params.type == 2) {
+    pg
+      .select(['uuid', 'data', 'typeID'])
+      .from('placeholderData')
+      .where({
+        typeID: req.params.type
+      })
+      .orderByRaw('random()')
+      .limit(1).then(data => {
+        res.json({
+          res: data
+        })
+      });
+
+  } else {
+    res.status(400).send();
+  }
+});
+
+// overloading getData endpoint in case there are no parameters given
+app.get('/getData', (req, res) => {
+  res.status(400).send();
+});
 
 // connection to the database
 const pg = require('knex')({
