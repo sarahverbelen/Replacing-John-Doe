@@ -24,6 +24,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: docker-compose up
+    - run: npm ci
+      working-directory: ./api
     - run: npm test
       working-directory: ./api
