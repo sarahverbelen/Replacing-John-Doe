@@ -2,11 +2,12 @@ const supertest = require('supertest');
 const app = require('./../server.js');
 
 const request = supertest(app);
-let firstRes = request.get('/test'); 
+
 
 describe('GET the test endpoint', () => {
     test('/test should respond with statuscode 200', async (next) => {
         try {
+            let firstRes = await request.get('/test'); 
             const response = await request.get('/test');
             expect(response.status).toBe(200);
             next();
