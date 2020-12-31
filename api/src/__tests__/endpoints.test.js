@@ -26,7 +26,7 @@ describe('create placeholder data', () => {
 
     test('POST request /create cannot send only data', async (next) => {
         try {
-            const response = await request.post('/create').send({data: 'test1234'});
+            const response = await request.post('/create/test1234');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
@@ -34,7 +34,7 @@ describe('create placeholder data', () => {
 
     test('POST request /create cannot send only a type', async (next) => {
         try {
-            const response = await request.post('/create').send({type: 2});
+            const response = await request.post('/create/2');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
@@ -42,39 +42,16 @@ describe('create placeholder data', () => {
 
     test('POST request /create has to have data and a type', async (next) => {
         try {
-            const response = await request.post('/create').send({data: 'test1234', type: 2});
+            const response = await request.post('/create/2/test1234');
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
     });
 
-    test('POST request /create: the parameter -data- cannot be of a type that isnt string', async (next) => {
-        try {
-            const response = await request.post('/create').send({'data': 123, 'type': 2});
-            expect(response.status).toBe(400);
-            next();
-        } catch (e) {}
-    });
-
-    test('POST request /create: the parameter -data- has to be of type string', async (next) => {
-        try {
-            const response = await request.post('/create').send({'data': 'hello', 'type': 2});
-            expect(response.status).toBe(200);
-            next();
-        } catch (e) {}
-    });
-
-    test('POST request /create: the parameter -type- cannot be of a type that isnt number', async (next) => {
-        try {
-            const response = await request.post('/create').send({'data': 'hello', 'type': '2'});
-            expect(response.status).toBe(400);
-            next();
-        } catch (e) {}
-    });
 
     test('POST request /create: the parameter -type- has to be either 0, 1 or 2', async (next) => {
         try {
-            const response = await request.post('/create').send({'data': 'hello', 'type': 2});
+            const response = await request.post('/create/2/hello');
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
@@ -82,7 +59,7 @@ describe('create placeholder data', () => {
 
     test('POST request /create: the parameter -type- cannot be something that isnt 0, 1 or 2', async (next) => {
         try {
-            const response = await request.post('/create').send({'data': 'hello', 'type': 5});
+            const response = await request.post('/create/5/hello');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
