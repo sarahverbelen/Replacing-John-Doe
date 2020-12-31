@@ -10,8 +10,8 @@ You can run the api locally using Docker. If you do not have Docker installed, p
 2. Navigate to the api in your browser using the url: `localhost:3000`. 
 
 ### Endpoints
-1. **/create** POST: /create/:type/:data -> type is either 0 (title), 1 (name) or 2 (text); data is a string
-    Saves data to the database. 
+1. **/create** POST: /create/:type/:data -> type is either 0 (title), 1 (name) or 2 (text); data is a string. Saves data to the database. 
+2. **/getData** GET: /getData/:type -> type is either 0 (title), 1 (name) or 2 (text). Returns a random piece of data from the given type.
 
 ### Tests
 1. **Endpoints**: testing the various endpoints.
