@@ -104,3 +104,30 @@ describe('DELETE endpoint', () => {
         } catch (e) {}
     });
 });
+
+describe('UPDATE endpoint', () => {
+    test('/update cannot be called without parameters', async (next) => {
+        try {
+            const response = await request.get('/update');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/update cannot be called with only 1 parameter', async (next) => {
+        try {
+            const response = await request.get('/update/0');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/update cannot be called with only 2 parameters', async (next) => {
+        try {
+            const response = await request.get('/update/0/1');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+});
