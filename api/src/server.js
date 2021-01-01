@@ -77,6 +77,21 @@ app.get('/getData', (req, res) => {
   res.status(400).send();
 });
 
+// DELETE endpoint
+app.get('/delete/:uuid', async (req, res) => {
+  await pg
+  .select(['uuid', 'typeID', 'created_at', 'data'])
+  .from('placeholderData')
+  .where({uuid: req.params.uuid})
+  .del();
+  res.status(200).send();
+});
+
+// overloading delete endpoint in case there are no parameters given
+app.get('/delete', (req, res) => {
+  res.status(400).send();
+});
+
 // connection to the database
 const pg = require('knex')({
   client: 'pg',
