@@ -12,7 +12,7 @@ You can run the api locally using Docker. If you do not have Docker installed, p
 ### Endpoints
 1. **/create** POST: /create/:type/:data -> type is either 0 (title), 1 (name) or 2 (text); data is a string. Saves data to the database. 
 2. **/getData** GET: /getData/:type -> type is either 0 (title), 1 (name) or 2 (text). Returns a random piece of data from the given type.
-
+3. **/delete** GET: /delete/:uuid -> deletes the data with the given uuid
 ### Tests
 1. **Endpoints**: testing the various endpoints.
 
