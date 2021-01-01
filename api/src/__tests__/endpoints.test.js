@@ -94,3 +94,21 @@ describe('GET: /getData endpoint', () => {
         } catch (e) {}
     });
 });
+
+describe('DELETE endpoint', () => {
+    test('/delete cannot be called without uuid', async (next) => {
+        try {
+            const response = await request.get('/delete');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/delete called with a nonexistent uuid doesnt work', async (next) => {
+        try {
+            const response = await request.get('/delete/0');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+});
