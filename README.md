@@ -10,12 +10,14 @@ You can run the api locally using Docker. If you do not have Docker installed, p
 2. Navigate to the api in your browser using the url: `localhost:3000`. 
 
 ### Endpoints
-1. **/create** POST: /create/:type/:data -> type is either 0 (title), 1 (name) or 2 (text); data is a string. Saves data to the database. 
+1. **/create** POST: /create/:type/:data -> type is either 0 (title), 1 (name) or 2 (text); data is a string. Saves data to the database. Returns the uuid of the newly created data.
 2. **/getData** GET: /getData/:type -> type is either 0 (title), 1 (name) or 2 (text). Returns a random piece of data from the given type.
 3. **/delete** GET: /delete/:uuid -> deletes the data with the given uuid
 4. **/update** GET: /update/:uuid/:type/:data -> edits the data with given uuid to have the given type and data
 ### Tests
 1. **Endpoints**: testing the various endpoints.
+2. **Helpers**: tests the helper functions (e.g. checkDataLength function)
+3. **Integration**: runs through the endpoints to see how they work together
 
 **Running the tests**
 1. Navigate to the api folder
