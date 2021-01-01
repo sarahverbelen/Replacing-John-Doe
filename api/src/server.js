@@ -27,15 +27,16 @@ app.post('/create/:type/:data', (req, res) => {
     if (req.params.type == 0 || req.params.type == 1 || req.params.type == 2) {
       // save the new data to the database
       const uuid = Helpers.generateUUID(); // first we generate a uuid for this placeholder data
+      if (Helpers.checkDataLength(req.params.data)) {
+        pg.table('placeholderData').insert({
+          uuid,
+          data: req.params.data,
+          typeID: req.params.type
+        });
 
-      pg.table('placeholderData').insert({
-        uuid,
-        data: req.params.data,
-        typeID: req.params.type
-      });
-
-      // send a statuscode when everything went right
-      res.status(200).send();
+        // send a statuscode when everything went right
+        res.status(200).send();
+      }
     }
   }
   // send an error in case the parameters are not correct / empty
@@ -80,10 +81,12 @@ app.get('/getData', (req, res) => {
 // DELETE endpoint
 app.get('/delete/:uuid', async (req, res) => {
   await pg
-  .select(['uuid', 'typeID', 'created_at', 'data'])
-  .from('placeholderData')
-  .where({uuid: req.params.uuid})
-  .del();
+    .select(['uuid', 'typeID', 'created_at', 'data'])
+    .from('placeholderData')
+    .where({
+      uuid: req.params.uuid
+    })
+    .del();
   res.status(200).send();
 });
 
@@ -94,15 +97,21 @@ app.get('/delete', (req, res) => {
 
 // UPDATE endpoint
 app.get('/update/:uuid/:type/:data', async (req, res) => {
-  await pg
-  .select(['uuid', 'typeID', 'created_at', 'data'])
-  .from('placeholderData')
-  .where({uuid: req.params.uuid})
-  .update({
-    data: req.params.data,
-    typeID: req.params.type
-  })
-  res.status(200).send();
+  if (Helpers.checkDataLength(req.params.data)) {
+    await pg
+      .select(['uuid', 'typeID', 'created_at', 'data'])
+      .from('placeholderData')
+      .where({
+        uuid: req.params.uuid
+      })
+      .update({
+        data: req.params.data,
+        typeID: req.params.type
+      })
+    res.status(200).send();
+  } else {
+    res.status(400).send();
+  }
 });
 
 // overloading delete endpoint in case there are no parameters given
