@@ -35,7 +35,9 @@ app.post('/create/:type/:data', (req, res) => {
         });
 
         // send a statuscode when everything went right
-        res.status(200).send();
+        res.json({
+          uuid: uuid
+        })
       }
     }
   }
