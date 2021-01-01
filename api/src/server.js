@@ -92,6 +92,32 @@ app.get('/delete', (req, res) => {
   res.status(400).send();
 });
 
+// UPDATE endpoint
+app.get('/update/:uuid/:type/:data', async (req, res) => {
+  await pg
+  .select(['uuid', 'typeID', 'created_at', 'data'])
+  .from('placeholderData')
+  .where({uuid: req.params.uuid})
+  .update({
+    data: req.params.data,
+    typeID: req.params.type
+  })
+  res.status(200).send();
+});
+
+// overloading delete endpoint in case there are no parameters given
+app.get('/update', (req, res) => {
+  res.status(400).send();
+});
+
+app.get('/update/:uuid', (req, res) => {
+  res.status(400).send();
+});
+
+app.get('/update/:uuid/:type', (req, res) => {
+  res.status(400).send();
+});
+
 // connection to the database
 const pg = require('knex')({
   client: 'pg',
