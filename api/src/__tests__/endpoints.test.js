@@ -114,13 +114,32 @@ describe('DELETE endpoint', () => {
             next();
         } catch (e) {}
     });
+});
 
-    test('/delete called with a nonexistent uuid doesnt work', async (next) => {
+describe('UPDATE endpoint', () => {
+    test('/update cannot be called without parameters', async (next) => {
         try {
-            const response = await request.get('/delete/0');
+            const response = await request.get('/update');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
+
+    test('/update cannot be called with only 1 parameter', async (next) => {
+        try {
+            const response = await request.get('/update/0');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
+    test('/update cannot be called with only 2 parameters', async (next) => {
+        try {
+            const response = await request.get('/update/0/1');
+            expect(response.status).toBe(400);
+            next();
+        } catch (e) {}
+    });
+
 });
 });
