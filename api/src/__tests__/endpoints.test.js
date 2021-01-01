@@ -103,12 +103,4 @@ describe('DELETE endpoint', () => {
             next();
         } catch (e) {}
     });
-
-    test('/delete called with a nonexistent uuid doesnt work', async (next) => {
-        try {
-            const response = await request.get('/delete/0');
-            expect(response.status).toBe(400);
-            next();
-        } catch (e) {}
-    });
 });
