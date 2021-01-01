@@ -2,7 +2,7 @@ const supertest = require('supertest');
 const app = require('./../server.js');
 
 const request = supertest(app);
-
+setTimeout(function(){
 
 describe('GET the test endpoint', () => {
     test('/test should respond with statuscode 200', async (next) => {
@@ -92,3 +92,5 @@ describe('GET: /getData endpoint', () => {
         } catch (e) {}
     });
 });
+
+}, 1000);
