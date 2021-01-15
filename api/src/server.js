@@ -21,7 +21,7 @@ app.get('/test', (req, res) => {
 });
 
 // create endpoint
-app.post('/create/:type/:data', (req, res) => {
+app.post('/createPlaceholderData/:type/:data', (req, res) => {
   // check if the req has a type and data
   if (req.params.type != null && req.params.data != null) {
     if (req.params.type == 0 || req.params.type == 1 || req.params.type == 2) {
@@ -46,16 +46,16 @@ app.post('/create/:type/:data', (req, res) => {
 });
 
 // overloading the create endpoint: in case there are not enough parameters given
-app.post('/create/:type', (req, res) => {
+app.post('/createPlaceholderData/:type', (req, res) => {
   res.status(400).send();
 });
 
-app.post('/create', (req, res) => {
+app.post('/createPlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
 // READ ENDPOINT
-app.get('/getData/:type', (req, res) => {
+app.get('/getPlaceholderData/:type', (req, res) => {
   if (req.params.type == 0 || req.params.type == 1 || req.params.type == 2) {
     pg
       .select(['uuid', 'data', 'typeID'])
@@ -76,12 +76,12 @@ app.get('/getData/:type', (req, res) => {
 });
 
 // overloading getData endpoint in case there are no parameters given
-app.get('/getData', (req, res) => {
+app.get('/getPlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
 // DELETE endpoint
-app.get('/delete/:uuid', async (req, res) => {
+app.get('/deletePlaceholderData/:uuid', async (req, res) => {
   await pg
     .select(['uuid', 'typeID', 'created_at', 'data'])
     .from('placeholderData')
@@ -93,12 +93,12 @@ app.get('/delete/:uuid', async (req, res) => {
 });
 
 // overloading delete endpoint in case there are no parameters given
-app.get('/delete', (req, res) => {
+app.get('/deletePlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
 // UPDATE endpoint
-app.get('/update/:uuid/:type/:data', async (req, res) => {
+app.get('/updatePlaceholderData/:uuid/:type/:data', async (req, res) => {
   if (Helpers.checkDataLength(req.params.data)) {
     await pg
       .select(['uuid', 'typeID', 'created_at', 'data'])
@@ -117,15 +117,15 @@ app.get('/update/:uuid/:type/:data', async (req, res) => {
 });
 
 // overloading delete endpoint in case there are no parameters given
-app.get('/update', (req, res) => {
+app.get('/updatePlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
-app.get('/update/:uuid', (req, res) => {
+app.get('/updatePlaceholderData/:uuid', (req, res) => {
   res.status(400).send();
 });
 
-app.get('/update/:uuid/:type', (req, res) => {
+app.get('/updatePlaceholderData/:uuid/:type', (req, res) => {
   res.status(400).send();
 });
 
@@ -188,7 +188,7 @@ async function initialiseTables() {
     }
   });
 
-  let listOfTypes = ["title", "name", "text"];
+  const LISTOFTYPES = ["title", "name", "text"];
 
   await pg.schema.hasTable('type').then(async (exists) => {
     if (!exists) {
@@ -200,11 +200,11 @@ async function initialiseTables() {
           table.integer('typeID');
         }).then(async () => {
           console.log('created types');
-          for (let i = 0; i < listOfTypes.length; i++) {
+          for (let i = 0; i < LISTOFTYPES.length; i++) {
             const uuid = Helpers.generateUUID();
             await pg.table('type').insert({
               uuid,
-              type: listOfTypes[i],
+              type: LISTOFTYPES[i],
               typeID: i
             })
           }

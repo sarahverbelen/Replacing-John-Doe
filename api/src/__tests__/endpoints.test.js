@@ -28,9 +28,9 @@ describe('GET the test endpoint', () => {
 });
 
 describe('create placeholder data', () => {
-    test('POST request /create cannot be empty', async (next) => {
+    test('POST request /createPlaceholderData cannot be empty', async (next) => {
         try {
-            const response = await request.post('/create');
+            const response = await request.post('/createPlaceholderData');
             expect(response.status).toBe(400);
             next();
         } catch (e) {
@@ -38,68 +38,68 @@ describe('create placeholder data', () => {
         }
     });
 
-    test('POST request /create cannot send only data', async (next) => {
+    test('POST request /createPlaceholderData cannot send only data', async (next) => {
         try {
-            const response = await request.post('/create/test1234');
+            const response = await request.post('/createPlaceholderData/test1234');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('POST request /create cannot send only a type', async (next) => {
+    test('POST request /createPlaceholderData cannot send only a type', async (next) => {
         try {
-            const response = await request.post('/create/2');
+            const response = await request.post('/createPlaceholderData/2');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('POST request /create has to have data and a type', async (next) => {
+    test('POST request /createPlaceholderData has to have data and a type', async (next) => {
         try {
-            const response = await request.post('/create/2/test1234');
+            const response = await request.post('/createPlaceholderData/2/test1234');
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
     });
 
 
-    test('POST request /create: the parameter -type- has to be either 0, 1 or 2', async (next) => {
+    test('POST request /createPlaceholderData: the parameter -type- has to be either 0, 1 or 2', async (next) => {
         try {
-            const response = await request.post('/create/2/hello');
+            const response = await request.post('/createPlaceholderData/2/hello');
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
     });
 
-    test('POST request /create: the parameter -type- cannot be something that isnt 0, 1 or 2', async (next) => {
+    test('POST request /createPlaceholderData: the parameter -type- cannot be something that isnt 0, 1 or 2', async (next) => {
         try {
-            const response = await request.post('/create/5/hello');
+            const response = await request.post('/createPlaceholderData/5/hello');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 });
 
-describe('GET: /getData endpoint', () => {
+describe('GET: /getPlaceholderData endpoint', () => {
     test('/getData cannot be called without parameters', async (next) => {
         try {
-            const response = await request.get('/getData');
+            const response = await request.get('/getPlaceholderData');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('/getData cannot be called with a type parameter that doesnt exist (=/= 0, 1 or 2)', async (next) => {
+    test('/getPlaceholderData cannot be called with a type parameter that doesnt exist (=/= 0, 1 or 2)', async (next) => {
         try {
-            const response = await request.get('/getData/5');
+            const response = await request.get('/getPlaceholderData/5');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('/getData called with a type parameter returns a random piece of data from that type', async (next) => {
+    test('/getPlaceholderData called with a type parameter returns a random piece of data from that type', async (next) => {
         try {
-            const response = await request.get('/getData/0');
+            const response = await request.get('/getPlaceholderData/0');
             expect(response.body).toBeDefined();
             next();
         } catch (e) {}
@@ -107,9 +107,9 @@ describe('GET: /getData endpoint', () => {
 });
 
 describe('DELETE endpoint', () => {
-    test('/delete cannot be called without uuid', async (next) => {
+    test('/deletePlaceholderData cannot be called without uuid', async (next) => {
         try {
-            const response = await request.get('/delete');
+            const response = await request.get('/deletePlaceholderData');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
@@ -117,29 +117,29 @@ describe('DELETE endpoint', () => {
 });
 
 describe('UPDATE endpoint', () => {
-    test('/update cannot be called without parameters', async (next) => {
+    test('/updatePlaceholderData cannot be called without parameters', async (next) => {
         try {
-            const response = await request.get('/update');
+            const response = await request.get('/updatePlaceholderData');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('/update cannot be called with only 1 parameter', async (next) => {
+    test('/updatePlaceholderData cannot be called with only 1 parameter', async (next) => {
         try {
-            const response = await request.get('/update/0');
+            const response = await request.get('/updatePlaceholderData/0');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
-    test('/update cannot be called with only 2 parameters', async (next) => {
+    test('/updatePlaceholderData cannot be called with only 2 parameters', async (next) => {
         try {
-            const response = await request.get('/update/0/1');
+            const response = await request.get('/updatePlaceholderData/0/1');
             expect(response.status).toBe(400);
             next();
         } catch (e) {}
     });
 
 });
-});
+
