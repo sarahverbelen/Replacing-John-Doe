@@ -141,6 +141,26 @@ app.get('/updatePlaceholderData/:uuid/:type', (req, res) => {
   res.status(400).send();
 });
 
+/**
+* @params: uuid, number type, string data
+* @returns: statuscode 400 (error) or 200 (ok)
+**/
+app.get('/getAllPlaceholderData', async (req, res) => {
+  
+    await pg
+      .from('placeholderData')
+      .join('type', 'placeholderData.typeID', 'type.typeID')
+      .select(['placeholderData.uuid', 'type.type', 'placeholderData.created_at', 'placeholderData.data'])
+      .where({
+        uuid: req.params.uuid
+      }).then(data => {
+        res.json({
+          res: data
+        });
+      })
+
+});
+
 // connection to the database
 const pg = require('knex')({
   client: 'pg',

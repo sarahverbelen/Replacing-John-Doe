@@ -8,7 +8,7 @@ describe('Running through the endpoints', () => {
     let uuid;
     test('creating new data', async (next) => {
         try {
-            const response = await request.post('/create/2/test1234');
+            const response = await request.post('/createPlaceholderData/2/test1234');
             expect(response.status).toBe(200);
             uuid = response.body.uuid;
             console.log(uuid);
@@ -18,7 +18,7 @@ describe('Running through the endpoints', () => {
 
     test('updating the data', async (next) => {
         try {
-            const response = await request.get('/update/' + uuid + '/0/newtest');
+            const response = await request.get('/updatePlaceholderData/' + uuid + '/0/newtest');
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
@@ -26,9 +26,24 @@ describe('Running through the endpoints', () => {
 
     test('deleting the data', async (next) => {
         try {
-            const response = await request.get('/delete/' + uuid);
+            const response = await request.get('/deletePlaceholderData/' + uuid);
             expect(response.status).toBe(200);
             next();
         } catch (e) {}
     });
+
+    test('see if the data still exists..', async (next) => {
+        try {
+            const response = await request.get('/getAllPlaceholderData');
+            let dataDeleted = true;
+            for(data in response.body.res) {
+                if(data.uuid == uuid) {
+                    dataDeleted = false;
+                }
+            }
+            expect(dataDeleted).toBe(false);
+            next();
+        } catch (e) {}
+    });
+    
 });

@@ -143,3 +143,13 @@ describe('UPDATE endpoint', () => {
 
 });
 
+describe('GET ALL endpoint', () => {
+    test('/getAllPlaceholderData returns data', async (next) => {
+        try {
+            const response = await request.get('/getAllPlaceholderData');
+            expect(response.status).toBe(200);
+            expect(response.body).toBeDefined();
+            next();
+        } catch (e) {}
+    });
+});
