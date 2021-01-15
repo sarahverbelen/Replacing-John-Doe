@@ -20,7 +20,10 @@ app.get('/test', (req, res) => {
   res.status(200).send();
 });
 
-// create endpoint
+/**
+* @params: number type + string data
+* @returns: statuscode 400 (error) or 200 (ok)
+**/
 app.post('/createPlaceholderData/:type/:data', (req, res) => {
   // check if the req has a type and data
   if (req.params.type != null && req.params.data != null) {
@@ -54,7 +57,10 @@ app.post('/createPlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
-// READ ENDPOINT
+/**
+* @params: number type
+* @returns: statuscode 400 (error) or json
+**/
 app.get('/getPlaceholderData/:type', (req, res) => {
   if (req.params.type == 0 || req.params.type == 1 || req.params.type == 2) {
     pg
@@ -80,7 +86,10 @@ app.get('/getPlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
-// DELETE endpoint
+/**
+* @params: uuid
+* @returns: statuscode 400 (error) or 200 (ok)
+**/
 app.get('/deletePlaceholderData/:uuid', async (req, res) => {
   await pg
     .select(['uuid', 'typeID', 'created_at', 'data'])
@@ -97,7 +106,10 @@ app.get('/deletePlaceholderData', (req, res) => {
   res.status(400).send();
 });
 
-// UPDATE endpoint
+/**
+* @params: uuid, number type, string data
+* @returns: statuscode 400 (error) or 200 (ok)
+**/
 app.get('/updatePlaceholderData/:uuid/:type/:data', async (req, res) => {
   if (Helpers.checkDataLength(req.params.data)) {
     await pg
@@ -138,7 +150,10 @@ const pg = require('knex')({
 });
 
 
-// initializing database tables (in case they don't exist yet)
+/**
+* @params: none
+* @returns: none
+**/
 async function initialiseTables() {
   await pg.schema.hasTable('placeholderData').then(async (exists) => {
     if (!exists) {
